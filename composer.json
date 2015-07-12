@@ -1,0 +1,16 @@
+{
+  "name": "drupal/steam_vent",
+  "description": "Steam Vent Drupal Module",
+  "type": "drupal-module",
+  "homepage": "https://github.com/dpi/steam_vent_drupal",
+  "authors": [
+    {
+      "name": "Daniel Phin",
+      "email": "pro@danielph.in",
+      "homepage": "http://danielph.in",
+      "role": "Maintainer"
+    }
+  ],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev"
+}
