@@ -68,12 +68,13 @@ class BindUser extends FormBase {
       $estimate = '';
       $average = cron_oracle_predict();
       if ($average && $average > 60) {
-        $minutes = ceil($average / 60);
-        $estimate = $this->formatPlural(
-          $minutes,
-          'This usually happens within @count minute.',
-          'This usually happens within @count minutes.'
-        );
+        /** @var \Drupal\Core\Datetime\DateFormatter $date_formatter */
+        $date_formatter = \Drupal::service('date.formatter');
+        $estimate = t('This usually happens within @time.', [
+          '@time' => $date_formatter->formatTimeDiffUntil(REQUEST_TIME + $average, [
+            'granularity' => 1,
+          ])
+        ]);
       }
       $items[]['#markup'] = $this->t('The Steam Bot will inform you when your account is bound. @estimate', ['@estimate' => $estimate]);
 
