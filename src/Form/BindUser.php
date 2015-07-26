@@ -64,8 +64,19 @@ class BindUser extends FormBase {
       $items[]['#markup'] = $this->t('Add the <a href="!steam_bot_link">Steam Bot</a> to your friends list.', $t_args);
       $items[] = $this->t('Wait for the Steam Bot to accept your friend request.');
       $items[]['#markup'] = $this->t('Send the following code as a Steam chat message to the Steam Bot: <code>@friend_code</code>', $t_args);
-      // @todo detect cron interval:
-      $items[] = $this->t('The Steam Bot will inform you when your account is bound. This usually happens within 60 minutes.');
+
+      $estimate = '';
+      $average = cron_oracle_predict();
+      if ($average && $average > 60) {
+        $minutes = ceil($average / 60);
+        $estimate = $this->formatPlural(
+          $minutes,
+          'This usually happens within @count minute.',
+          'This usually happens within @count minutes.'
+        );
+      }
+      $items[]['#markup'] = $this->t('The Steam Bot will inform you when your account is bound. @estimate', ['@estimate' => $estimate]);
+
       $items[] = $this->t('You must keep the Steam Bot on your friends list indefinitely in order to maintain the binding between to your Steam account.');
       $form['steps'] = [
         '#theme' => 'item_list',

@@ -4,4 +4,5 @@ description: 'Steam Vent integration.'
 core: 8.x
 dependencies:
   - composer_manager
+  - cron_oracle
 package: Web services
