@@ -1,0 +1,17 @@
+id: user.steam_id
+field_name: steam_id
+entity_type: user
+type: integer
+status: true
+dependencies:
+  module:
+    - user
+settings:
+  unsigned: true
+  size: big
+module: core
+locked: true
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false

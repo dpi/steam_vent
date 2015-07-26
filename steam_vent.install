@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for Steam Vent.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function steam_vent_install() {
+  if (FieldConfig::loadByName('user', 'user', 'steam_id')) {
+    entity_get_form_display('user', 'user', 'default')
+      ->removeComponent('steam_id')
+      ->save();
+    entity_get_display('user', 'user', 'default')
+      ->removeComponent('steam_id')
+      ->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function steam_vent_uninstall() {
+  if ($field = FieldStorageConfig::loadByName('user', 'steam_id')) {
+    $field->delete();
+  }
+}

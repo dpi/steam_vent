@@ -1,0 +1,23 @@
+<?php
+
+/**
+* Implements hook_cron().
+*/
+function steam_vent_cron() {
+  /** @var \Drupal\steam_vent\Service\SteamVentManagerInterface $steam_vent_manager */
+  $steam_vent_manager = \Drupal::service('steam_vent.manager');
+
+  // Bind new code claims.
+  $steam_vent_manager->handleNewClaims();
+
+  // Kill old friend codes.
+  if ($code_lifetime = \Drupal::config('steam_vent.settings')->get('code_lifetime')) {
+    $storage = \Drupal::entityManager()
+      ->getStorage('steam_vent_friend_code');
+    $ids = $storage
+      ->getQuery()
+      ->condition('created', REQUEST_TIME - $code_lifetime, '<')
+      ->execute();
+    $storage->delete($storage->loadMultiple($ids));
+  }
+}

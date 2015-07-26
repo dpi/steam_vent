@@ -1,0 +1,11 @@
+steam_vent.user.bind:
+  route_name: steam_vent.user.bind
+  title: 'Link Steam account'
+  appears_on:
+    - entity.user.edit_form
+
+steam_vent.steam_vent_bot.add:
+  route_name: entity.steam_vent_bot.add
+  title: 'Add bot instance'
+  appears_on:
+    - entity.steam_vent_bot.collection

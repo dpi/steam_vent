@@ -1,0 +1,11 @@
+entity.steam_vent_bot.collection:
+  title: 'Oberon bot instances'
+  parent: system.admin_structure
+  description: 'Manage bots for Steam Vent.'
+  route_name: entity.steam_vent_bot.collection
+
+steam_vent.config:
+  title: 'Steam Vent'
+  parent: system.admin_config_services
+  description: 'Configure settings for Steam Vent.'
+  route_name: steam_vent.config

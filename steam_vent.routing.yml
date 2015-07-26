@@ -1,0 +1,69 @@
+# Steam bot entity.
+entity.steam_vent_bot.collection:
+  path: '/admin/structure/steam_vent/bots'
+  defaults:
+    _controller: '\Drupal\Core\Entity\Controller\EntityListController::listing'
+    entity_type: 'steam_vent_bot'
+    _title: 'Oberon bot instances'
+  requirements:
+    _permission: 'administer steam_vent bot'
+
+entity.steam_vent_bot.add:
+  path: '/admin/structure/steam_vent/bots/add'
+  defaults:
+    _title: 'Add Steam bot'
+    _entity_form: 'steam_vent_bot.add'
+  requirements:
+    _permission: 'administer steam_vent bot'
+
+entity.steam_vent_bot.edit_form:
+  path: '/admin/structure/steam_vent/bots/manage/{steam_vent_bot}'
+  defaults:
+    _entity_form: 'steam_vent_bot.edit'
+  requirements:
+    _permission: 'administer steam_vent bot'
+
+entity.steam_vent_bot.delete_form:
+  path: '/admin/structure/steam_vent/bots/manage/{steam_vent_bot}/delete'
+  defaults:
+    _entity_form: 'steam_vent_bot.delete'
+  requirements:
+    _permission: 'administer steam_vent bot'
+
+# Steam message entity
+entity.steam_vent_message.canonical:
+  path: '/steam/message/{steam_vent_message}'
+  defaults:
+    _entity_form: 'steam_vent_message'
+    _title: 'Steam message'
+  requirements:
+    _entity_access: 'steam_vent_message.update'
+
+entity.steam_vent_message.edit_form:
+  path: '/steam/message/{steam_vent_message}/edit'
+  defaults:
+    _entity_form: 'steam_vent_message'
+    _title: 'Steam message'
+  requirements:
+    _entity_access: 'steam_vent_message.update'
+
+steam_vent.user.bind:
+  path: '/user/{user}/steam'
+  defaults:
+    _controller: '\Drupal\steam_vent\Controller\BindUser::BindUser'
+    _title: 'Steam account'
+  requirements:
+    _permission: 'steam_vent link'
+  options:
+    parameters:
+      user:
+        type: entity:user
+
+# Module config
+steam_vent.config:
+  path: '/admin/config/services/steam_vent'
+  defaults:
+    _form: '\Drupal\steam_vent\Form\Settings'
+    _title: 'Steam Vent settings'
+  requirements:
+    _permission: 'administer steam_vent'

@@ -1,0 +1,30 @@
+steam_vent.settings:
+  type: mapping
+  label: 'Steam Vent settings'
+  mapping:
+    code_lifetime:
+      type: integer
+      label: 'How many seconds a code exists before expiring.'
+
+steam_vent.bot.*:
+  type: config_entity
+  label: 'Steam Vent Bot'
+  mapping:
+    label:
+      type: label
+      label: 'Name'
+    id:
+      type: string
+      label: 'Machine-readable name'
+    description:
+      type: text
+      label: 'Description'
+    url:
+      type: uri
+      label: 'Address to REST server'
+    profile_url:
+      type: uri
+      label: 'Steam Community URL'
+    max_friends:
+      type: integer
+      label: 'Maximum quantity of friends this bot can accept (friend limit).'

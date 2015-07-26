@@ -1,0 +1,8 @@
+administer steam_vent:
+  title: 'Administer Steam Vent'
+  description: 'Manage settings for Steam Vent.'
+  restrict access: TRUE
+
+steam_vent link:
+  title: 'Link Steam Account'
+  description: 'Allow the user to associate with a Steam account.'

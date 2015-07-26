@@ -1,0 +1,5 @@
+services:
+  steam_vent.manager:
+    class: Drupal\steam_vent\Service\SteamVentManager
+    arguments: ['@entity.manager']
+    parent: container.trait
