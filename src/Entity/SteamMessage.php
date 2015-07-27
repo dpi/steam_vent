@@ -72,14 +72,27 @@ class SteamMessage extends ChannelBase implements SteamMessageInterface {
   /**
    * {@inheritdoc}
    */
+  public function applyTokens() {
+    $tokens = $this->getTokenValues();
+    $this->setMessage(\Drupal::token()->replace($this->getMessage(), $tokens));
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function isEmpty() {
+    return empty($this->getMessage());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   static public function sendMessages(array $messages, $options = []) {
     /** @var \Drupal\steam_vent\Service\SteamVentManagerInterface $steam_vent_manager */
     $steam_vent_manager = \Drupal::service('steam_vent.manager');
     /* @var static[] $messages */
     foreach ($messages as $message) {
-      $tokens = $message->getTokenValues();
-      $message->setMessage(\Drupal::token()->replace($message->getMessage(), $tokens));
-
       $bot = $steam_vent_manager->getBotForSteamId($message->getSteamId());
       $meta = $steam_vent_manager->getMeta($bot);
       $meta->sendMessage($message->getSteamId(), $message->getMessage());
