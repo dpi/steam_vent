@@ -12,6 +12,7 @@ use Drupal\courier\Plugin\IdentityChannel\IdentityChannelPluginInterface;
 use Drupal\courier\ChannelInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\steam_vent\Service\SteamVentManager;
+use Drupal\courier\Exception\IdentityException;
 
 /**
  * Supports core user entities.
@@ -32,6 +33,11 @@ class User implements IdentityChannelPluginInterface {
   public function applyIdentity(ChannelInterface &$message, EntityInterface $identity) {
     /** @var \Drupal\user\UserInterface $identity */
     /** @var \Drupal\steam_vent\Entity\SteamMessage $message */
+
+    if (empty($identity->{SteamVentManager::FIELD_STEAM_ID}->value)) {
+      throw new IdentityException('User does not have a Steam ID.');
+    }
+
     $message->setSteamId($identity->{SteamVentManager::FIELD_STEAM_ID}->value);
   }
 
