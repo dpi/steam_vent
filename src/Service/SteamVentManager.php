@@ -79,6 +79,18 @@ class SteamVentManager implements SteamVentManagerInterface {
     $claimed = [];
     $meta = $this->getMeta($this->getBot());
     foreach ($meta->getNewClaims() as $code => $steam_id) {
+      // Remove other users with this Steam ID.
+      $user_storage = \Drupal::entityManager()
+        ->getStorage('user');
+      $ids = $user_storage
+        ->getQuery()
+        ->condition($this::FIELD_STEAM_ID, $steam_id)
+        ->execute();
+      foreach ($user_storage->loadMultiple($ids) as $user) {
+        $this->setSteamId($user, NULL);
+      }
+
+      // Associate the Steam ID.
       if ($friend_code = FriendCode::getFriendCodeByCode($code)) {
         $this->setSteamId($friend_code->getUser(), $steam_id);
         $claimed[] = $friend_code;
