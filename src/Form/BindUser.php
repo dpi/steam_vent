@@ -124,7 +124,13 @@ class BindUser extends FormBase {
       $friend_code = $this->steamVentManager->createFriendCode($user);
       $friend_code->save();
       $bot_meta = $this->steamVentManager->getMeta($friend_code->getBot());
-      $bot_meta->sendFriendCode($friend_code);
+      try {
+        $bot_meta->sendFriendCode($friend_code);
+      }
+      catch (\Exception $e) {
+        drupal_set_message('Failed to communicate with Steam Bot');
+        $bot_meta->delete();
+      }
     }
   }
 

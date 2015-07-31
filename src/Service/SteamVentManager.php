@@ -75,8 +75,6 @@ class SteamVentManager implements SteamVentManagerInterface {
    * {@inheritdoc}
    */
   public function handleNewClaims() {
-    /** @var \Drupal\steam_vent\FriendCodeInterface[] $claimed */
-    $claimed = [];
     $meta = $this->getMeta($this->getBot());
     foreach ($meta->getNewClaims() as $code => $steam_id) {
       // Remove other users with this Steam ID.
@@ -93,13 +91,9 @@ class SteamVentManager implements SteamVentManagerInterface {
       // Associate the Steam ID.
       if ($friend_code = FriendCode::getFriendCodeByCode($code)) {
         $this->setSteamId($friend_code->getUser(), $steam_id);
-        $claimed[] = $friend_code;
+        $meta->deleteFriendCode($friend_code, TRUE);
+        $friend_code->delete();
       }
-    }
-
-    $meta->purgeFriendCodes($claimed);
-    foreach ($claimed as $friend_code) {
-      $friend_code->delete();
     }
   }
 

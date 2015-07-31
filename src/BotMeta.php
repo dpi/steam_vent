@@ -19,7 +19,7 @@ class BotMeta implements BotMetaInterface {
   /**
    * The HTTP client to fetch the feed data with.
    *
-   * @var \GuzzleHttp\ClientInterface
+   * @var \GuzzleHttp\Client
    */
   protected $httpClient;
 
@@ -50,8 +50,9 @@ class BotMeta implements BotMetaInterface {
    * {@inheritdoc}
    */
   function sendFriendCode(FriendCodeInterface $friend_code) {
-    $this->httpClient->post($this->buildUrl('/friend_code'), [
+    $result = $this->httpClient->post($this->buildUrl('/friend_codes'), [
       'json' => [
+        'id' => $friend_code->id(),
         'code' => $friend_code->getCode(),
         'user_label' => $friend_code->getUser()->label(),
       ],
@@ -63,7 +64,7 @@ class BotMeta implements BotMetaInterface {
    */
   function getNewClaims() {
     $codes = [];
-    $result = $this->httpClient->get($this->buildUrl('/codes'));
+    $result = $this->httpClient->get($this->buildUrl('/friend_codes'));
     $friend_codes = Json::decode($result->getBody());
 
     if (is_array($friend_codes)) {
@@ -80,15 +81,10 @@ class BotMeta implements BotMetaInterface {
   /**
    * {@inheritdoc}
    */
-  function purgeFriendCodes(array $friend_codes) {
-    $codes = [];
-    foreach ($friend_codes as $friend_code) {
-      $codes[] = $friend_code->getCode();
-    }
-
-    $this->httpClient->post($this->buildUrl('/friend_code_purge'), [
+  function deleteFriendCode($friend_code, $bound = FALSE) {
+    $this->httpClient->delete($this->buildUrl('/friend_codes/' . $friend_code->id()), [
       'json' => [
-        'codes' => $codes,
+        'bound' => $bound,
       ],
     ]);
   }
@@ -118,7 +114,7 @@ class BotMeta implements BotMetaInterface {
    * {@inheritdoc}
    */
   public function sendMessage($steam_id, $message) {
-    $this->httpClient->post($this->buildUrl('/send_message'), [
+    $this->httpClient->post($this->buildUrl('/message'), [
       'json' => [
         'steam_id' => $steam_id,
         'message' => $message,

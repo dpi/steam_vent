@@ -17,10 +17,7 @@ interface BotMetaInterface {
    */
   function sendFriendCode(FriendCodeInterface $friend_code);
 
-  /**
-   * @param FriendCodeInterface[] $friend_codes
-   */
-  function purgeFriendCodes(array $friend_codes);
+  function deleteFriendCode($friend_code, $bound = FALSE);
 
   /**
    *
