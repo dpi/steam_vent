@@ -52,7 +52,7 @@ class Bot extends EntityForm {
     $form = parent::buildForm($form, $form_state);
 
     if (!$bot->isNew()) {
-      $form['#title'] = $this->t('Edit oberon bot %label', [
+      $form['#title'] = $this->t('Edit Steam Conduit bot %label', [
         '%label' => $bot->label(),
       ]);
     }

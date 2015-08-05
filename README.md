@@ -4,7 +4,7 @@ Copyright (C) 2015 Daniel Phin (@dpi)
 
 # Installation
 
-Designed to be used as a companion to the Project Oberon REST server.
+Designed to be used as a companion to the [Steam Conduit](https://www.npmjs.com/package/steam_conduit) REST server.
 
 # License
 

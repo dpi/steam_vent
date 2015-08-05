@@ -1,5 +1,5 @@
 entity.steam_vent_bot.collection:
-  title: 'Oberon bot instances'
+  title: 'Steam Conduit bot instances'
   parent: system.admin_structure
   description: 'Manage bots for Steam Vent.'
   route_name: entity.steam_vent_bot.collection

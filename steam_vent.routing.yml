@@ -4,7 +4,7 @@ entity.steam_vent_bot.collection:
   defaults:
     _controller: '\Drupal\Core\Entity\Controller\EntityListController::listing'
     entity_type: 'steam_vent_bot'
-    _title: 'Oberon bot instances'
+    _title: 'Steam Conduit bot instances'
   requirements:
     _permission: 'administer steam_vent bot'
 
