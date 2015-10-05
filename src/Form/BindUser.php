@@ -128,8 +128,8 @@ class BindUser extends FormBase {
         $bot_meta->sendFriendCode($friend_code);
       }
       catch (\Exception $e) {
-        drupal_set_message('Failed to communicate with Steam Bot');
-        $bot_meta->delete();
+        drupal_set_message('Failed to communicate with Steam Bot', 'warning');
+        $friend_code->delete();
       }
     }
   }
