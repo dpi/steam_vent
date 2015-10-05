@@ -75,6 +75,11 @@ class SteamVentManager implements SteamVentManagerInterface {
    * {@inheritdoc}
    */
   public function handleNewClaims() {
+    // Fail if no bots exist.
+    if (!$this->getBot()) {
+      return;
+    }
+
     $meta = $this->getMeta($this->getBot());
     foreach ($meta->getNewClaims() as $code => $steam_id) {
       // Remove other users with this Steam ID.
