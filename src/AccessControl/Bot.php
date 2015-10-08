@@ -20,7 +20,7 @@ class Bot extends EntityAccessControlHandler {
   /**
    * {@inheritdoc}
    */
-  protected function checkAccess(EntityInterface $entity, $operation, $langcode, AccountInterface $account) {
+  protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     $account = $this->prepareUser($account);
     return AccessResult::allowedIf($account->hasPermission('administer steam_vent bot'));
   }
